@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Pixel Notes 💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+        }
+        .page {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
+            gap: 2vw;
+            padding: 3vw;
+            background: white;
+            border-radius: 4px;
+            border: 3px solid #d87093;
+            width: 95%;
+            margin: 0 auto;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.1);
+        }
+        .photo-gallery img {
+            width: 100%;
+            border: 2px solid #d87093;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page" id="page1" style="background-color: #ffb6c1; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
+        <div class="star" onclick="showPage('page2')" style="font-size: 15vw; cursor: pointer; text-shadow: 4px 4px 0px rgba(0,0,0,0.1); border: 4px solid #d87093; padding: 5vw; border-radius: 4px; background-color: white; box-shadow: 8px 8px 0px #d87093;">⭐</div>
+        <p style="margin-top: 10vw; width: 100%; text-align: center; font-size: 5vw; color: #d87093; text-shadow: 2px 2px 0px rgba(0,0,0,0.1);">Click the star to begin!</p>
+    </div>
+    <div class="page" id="page2" style="background-color: #ffe4e1; padding: 40px; position: fixed; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto;">
+        <div id="notes-display" style="width: 95%; height: calc(100vh - 25vw); padding: 10px; font-family: 'Courier New', monospace; font-size: 5vw; color: #d87093; line-height: 1.6; overflow-y: auto; word-break: break-word; margin-bottom: 15vw;"></div>
+        <div style="position: fixed; bottom: 5vw; width: 100%; display: flex; justify-content: center; gap: 10px;">
+            <button onclick="resetAndPlayNotes()" style="background-color: #d87093; color: white; border: 2px solid #d87093; padding: 2vw 4vw; font-size: 4vw; min-height: 10vw; cursor: pointer; font-family: 'Courier New', monospace; box-shadow: 4px 4px 0px #b15b7a; border-radius: 4px;">▶️ Play Notes</button>
+            <button onclick="showPage('page3')" style="background-color: #d87093; color: white; border: 2px solid #d87093; padding: 2vw 4vw; font-size: 4vw; min-height: 10vw; cursor: pointer; font-family: 'Courier New', monospace; box-shadow: 4px 4px 0px #b15b7a; border-radius: 4px;">Next ➡️</button>
+        </div>
+    </div>
+    <div class="page" id="page3" style="background-color: #fff0f5; padding: 20px;">
+        <h1 style="color: #d87093; font-family: 'Courier New', monospace;">Thank You Veena!</h1>
+        <div class="photo-gallery" id="photo-gallery"></div>
+        <div style="position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px;">
+            <button onclick="showPage('page2')" style="background-color: #d87093; color: white; border: 2px solid #d87093; padding: 10px 15px; font-size: 16px; cursor: pointer; font-family: 'Courier New', monospace; box-shadow: 4px 4px 0px #b15b7a; border-radius: 4px;">⬅️ Notes</button>
+            <button onclick="showPage('page1')" style="background-color: #d87093; color: white; border: 2px solid #d87093; padding: 10px 15px; font-size: 16px; cursor: pointer; font-family: 'Courier New', monospace; box-shadow: 4px 4px 0px #b15b7a; border-radius: 4px;">🏠 Home</button>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'flex';
+        }
+
+        // Load 5 random portrait photos
+        const photoUrls = [
+            "https://randomuser.me/api/portraits/women/1.jpg",
+            "https://randomuser.me/api/portraits/women/2.jpg",
+            "https://randomuser.me/api/portraits/women/3.jpg",
+            "https://randomuser.me/api/portraits/men/1.jpg",
+            "https://randomuser.me/api/portraits/men/2.jpg"
+        ];
+
+        function loadPhotos() {
+            const gallery = document.getElementById('photo-gallery');
+            gallery.innerHTML = ''; // Clear any existing photos
+
+            photoUrls.forEach(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                gallery.appendChild(img);
+            });
+        }
+
+        // Initialize photo gallery
+        loadPhotos();
+
+        // Notes functions
+        const notes = [
+            "Hai vee,",
+            "First time juga sy rasa sy buat note untuk kau. First of all, sy minta maaf kalau hadiah sy kasi nda seberapa tapi sy usahakan juga ada something yang sy boleh kasi kau last kita jumpa di Labuan dan sy rasa mungkin ni last dari sy, sy ndatau kau suka ka tidak semua barang sy kasi tapi sy harap kau nda buat barang sy kasi macam kau buat sama barang yang orang lain kasi sama kau HEHE.",
+            "",
+            "Terima kasih vee jadi kawan sy di UMSKAL ni, mungkin kau rasa kau nda buat banyak untuk sy, tapi rasa ada kawan macam kau di sini cukup buat sy bersyukur sy dapat sambung belajar di Labuan. Terima kasih juga sudi food hunting sama sama di Labuan, sy halalkan semua makanan yang sy belanja kau. Kalau sy nda kenal kau di sini mungkin sy banyak duduk dalam ums ja. Banyak tempat best kita suda pergi, dari kita first keluar makan ice-cream sama-sama, pigi main basikal, pigi ikut event lari, pi tengok belon panas, kena libas ombak juga, banyak lagilaa sampai sy nda mampu type semua di sini.",
+            "",
+            "Nda sangka 3 tahun kita di UMS habis sekelip mata jaa, mungkin time kau baca ni kau ada di semenanjung sudah. Lepastu sy juga mau terima kasih vee atas semua nasihat kau pernah bagi sama sy, pernah bantu bantu sy di sini. Sy ndatau kita dapat jumpa lagi ka tidak lepas ni, sy nda pasti kau masih ingat sy ka tidak in future HAHAHA. Tapi sy enjoy semua masa kita di UMSKAL ni. Banyak lagi sy mau cakap tapi nanti terlampau panjang pula",
+            "",
+            "Last, sy mau minta maaf sama kau vee, banyak salah silap sy sama kau, buat kau marah, selalu ganggu ganggu kau, buat kau annoyed semua. Sorry juga sebab sy pernah suka kau, sy nda pernah confess tapi sy rasa sy patut luah juga apa sy pendam. Kau pun cakap people don't get attached with their friends. Jadi sy settle with liking you from afar sampai feeling ni fade away HIHI. Minta maaf juga sebab dulu sy selalu cakap sy rindu. Sy ikhlas semua benda yang sy pernah belanja atau apa apa, sy seronok nampak kau gembira sebab tu sy suka belanja. Kalau sy berlebihan sy minta maaf vee, sy takut mau confess sebab sy takut kita nda rapat sudah lepas tu",
+            "",
+            "I try my best untuk buat kau happy sepanjang degree kau, sebab kau pernah cakap kau nda berapa suka zaman diploma kau, jadi sy support kau selagi sy masih ada di labuan ni sampai kau habis study di sini",
+            "",
+            "Thank You vee!! Goodluck in your future,harap kau sentiasa sihat kalau ada apa yang sy dapat bantu,contact sy, social media sy semua masih sama. I want you to know that sy nda pernah benci kau and hope kita dapat berjumpa lagi. Bye-bye😙",
+            "",
+            ""
+        ];
+
+        let typingInterval;
+        let lineIndex = 0;
+        let charIndex = 0;
+
+        function resetAndPlayNotes() {
+            const display = document.getElementById('notes-display');
+            display.innerHTML = '';
+            lineIndex = 0;
+            charIndex = 0;
+            
+            if (typingInterval) {
+                clearInterval(typingInterval);
+            }
+            
+            typingInterval = setInterval(typeNextChar, 50);
+            
+            // Auto-loop when reaching the end with delay
+            setTimeout(() => {
+                if (lineIndex >= notes.length) {
+                    setTimeout(resetAndPlayNotes, 2000); // Wait for 2 seconds before restarting
+                }
+            }, 1000); // Check every second if we've reached the end
+        }
+
+        function typeNextChar() {
+            const display = document.getElementById('notes-display');
+            
+            if (lineIndex >= notes.length) {
+                return;
+            }
+            
+            const currentLine = notes[lineIndex];
+            
+            if (charIndex >= currentLine.length) {
+                display.innerHTML += '<br><br>';
+                lineIndex++;
+                charIndex = 0;
+                
+                // Skip empty lines immediately
+                if (lineIndex < notes.length && notes[lineIndex] === '') {
+                    lineIndex++;
+                }
+            } else {
+                display.innerHTML += currentLine.charAt(charIndex);
+                charIndex++;
+            }
+        }
+
+        // Initialize first page
+        showPage('page1');
+    </script>
+</body>
+</html>
