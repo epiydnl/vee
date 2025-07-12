@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Pixel Notes 💖</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Page 1 -->
+<div class="page" id="page1" style="background-color: #ffb6c1;">
+  <div class="star" onclick="showPage('page2')">⭐</div>
+  <p class="intro-text">Click the star to begin!</p>
+</div>
+
+<!-- Page 2 -->
+<div class="page" id="page2" style="background-color: #ffe4e1;">
+  <div id="notes-display" class="notes-box"></div>
+  <div class="fixed-buttons">
+    <button onclick="resetAndPlayNotes()" class="action-btn">▶️ Play Notes</button>
+    <button onclick="showPage('page3')" class="action-btn">Next ➡️</button>
+  </div>
+</div>
+
+<!-- Page 3 -->
+<div class="page" id="page3" style="background-color: #fff0f5;">
+  <h1 class="page-header">Thank You Veena!</h1>
+  <div class="photo-gallery" id="photo-gallery"></div>
+  <div class="corner-buttons">
+    <button onclick="showPage('page2')" class="corner-btn">⬅️ Notes</button>
+    <button onclick="showPage('page1')" class="corner-btn">🏠 Home</button>
+  </div>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    document.getElementById(id).style.display = 'flex';
+  }
+
+  const photos = [
+    { path: 'with_veena/photo1.jpg', desc: 'Sorry vee, sy diam diam type code ni masa kita dua di library tu hari.' },
+    { path: 'with_veena/photo2.jpg', desc: 'Hihi first gambar kita sama sama, time ni kau bawa sy bergambar masa karkomkal first year kita.' },
+    { path: 'with_veena/photo3.jpg', desc: 'Masih ada rupanya gambar kita time closing karkomkal dulu.' },
+    { path: 'with_veena/photo4.jpg', desc: 'Dulu macam tiap minggu kita keluar makan ice-cream sama-sama HAHAHAHA' },
+    { path: 'with_veena/photo5.jpg', desc: 'Dapat juga tunaikan hajat kau mau tengok belon panas vee HAHAHA.' },
+    { path: 'with_veena/photo6.jpg', desc: 'Time ni berapa ratus gambar kau sy ambil di pantai pun sy ndatau HIHI.' },
+    { path: 'with_veena/photo7.jpg', desc: 'I really enjoyed going to the beach with you' },
+    { path: 'with_veena/photo8.jpg', desc: 'Bila laa dapat tengok kau ayu bertudung macam ni lagi.' },
+    { path: 'with_veena/photo9.jpg', desc: 'HAHAAHA time ni kau paksa sy guna kimono sama-sama.' },
+    { path: 'with_veena/photo10.jpg', desc: 'Ni last gambar kita sama-sama. Time pigi fun run di sea sport.                                                            .' }
+  ];
+
+  function loadPhotos() {
+    const gallery = document.getElementById('photo-gallery');
+    gallery.innerHTML = '';
+    photos.forEach((photo, i) => {
+      const item = document.createElement('div');
+      item.className = 'photo-item';
+      item.innerHTML = `
+        <img src="${photo.path}" alt="Veena Photo ${i + 1}">
+        <p>${photo.desc}</p>`;
+      gallery.appendChild(item);
+    });
+  }
+
+  const notes = [
+    "Hai vee,",
+    "First time juga sy rasa sy buat note untuk kau...",
+    "Terima kasih vee jadi kawan sy di UMSKAL ni...",
+    "Nda sangka 3 tahun kita di UMS habis sekelip mata jaa...",
+    "Last, sy mau minta maaf sama kau vee...",
+    "I try my best untuk buat kau happy sepanjang degree kau...",
+    "Thank You vee!! Goodluck in your future...",
+    ""
+  ];
+
+  let lineIdx = 0, charIdx = 0, typer;
+
+  function resetAndPlayNotes() {
+    const box = document.getElementById('notes-display');
+    box.innerHTML = '';
+    lineIdx = charIdx = 0;
+    clearInterval(typer);
+    typer = setInterval(typeNextChar, 50);
+  }
+
+  function typeNextChar() {
+    const box = document.getElementById('notes-display');
+    if (lineIdx >= notes.length) return;
+    const line = notes[lineIdx];
+    if (charIdx >= line.length) {
+      box.innerHTML += '<br><br>';
+      lineIdx++; charIdx = 0;
+      if (lineIdx < notes.length && notes[lineIdx] === '') lineIdx++;
+    } else {
+      box.innerHTML += line.charAt(charIdx++);
+    }
+  }
+
+  loadPhotos();
+  showPage('page1');
+</script>
+
+</body>
+</html>
